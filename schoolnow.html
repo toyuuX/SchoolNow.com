@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SchoolNow – Students helping students</title>
+<style>
+:root{--bg:#f4f1ff;--fg:#1d1b2e;--mut:#6b6785;--card:rgba(255,255,255,.62);--bd:rgba(255,255,255,.8);--pri:#6c4cff;--pri2:#ff5fa2;--free:#16a34a;--adv:#d97706;--chip:rgba(108,76,255,.1);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12101f;--fg:#efecff;--mut:#a29fc0;--card:rgba(40,36,66,.6);--bd:rgba(255,255,255,.1);--chip:rgba(150,130,255,.16);--free:#4ade80;--adv:#fbbf24}}
+:root[data-theme="dark"]{--bg:#12101f;--fg:#efecff;--mut:#a29fc0;--card:rgba(40,36,66,.6);--bd:rgba(255,255,255,.1);--chip:rgba(150,130,255,.16);--free:#4ade80;--adv:#fbbf24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;min-height:100vh;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.45;z-index:0;animation:fl 14s ease-in-out infinite alternate}
+.b1{width:340px;height:340px;background:var(--pri);top:-80px;left:-80px}
+.b2{width:300px;height:300px;background:var(--pri2);bottom:-60px;right:-60px;animation-delay:-6s}
+@keyframes fl{to{transform:translate(60px,40px) scale(1.15)}}
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:14px 16px 90px}
+.glass{background:var(--card);border:1px solid var(--bd);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:24px;box-shadow:0 8px 30px rgba(60,40,140,.12)}
+header{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;padding:12px 14px;margin-bottom:14px}
+.logo{font-weight:800;font-size:21px;letter-spacing:-.5px;flex:1;min-width:0;white-space:nowrap}
+.logo span{background:linear-gradient(90deg,var(--pri),var(--pri2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wal{display:flex;align-items:center;border-radius:99px;background:var(--chip);font-weight:700;font-size:14px;cursor:pointer;overflow:hidden;flex-shrink:0}.wal div{display:flex;align-items:center;gap:5px;padding:9px 12px;transition:transform .25s}.wal div+div{border-left:1px solid var(--bd)}
+.wal .pop{transform:scale(1.2)}
+.wal .f b{color:var(--free)}.wal .a b{color:var(--adv)}
+nav{display:flex;gap:6px;padding:6px;margin-bottom:16px;overflow-x:auto}
+nav button{flex:1;white-space:nowrap;border:0;background:none;color:var(--mut);font-weight:600;font-size:13px;font-family:inherit;padding:10px 6px;border-radius:18px;cursor:pointer;transition:.25s}
+nav button.on{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;box-shadow:0 6px 16px rgba(108,76,255,.35)}
+h2{margin:6px 4px 12px;font-size:20px}
+.hero{padding:22px;margin-bottom:16px}
+.hero h1{margin:0 0 6px;font-size:26px;letter-spacing:-.5px}
+.hero p{margin:0;color:var(--mut)}
+input,select,textarea{width:100%;padding:12px 14px;border-radius:16px;border:1px solid var(--bd);background:var(--chip);color:var(--fg);font:inherit;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--pri)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0}
+.chip{border:0;background:var(--chip);color:var(--fg);padding:8px 14px;border-radius:99px;font:600 13px inherit;font-family:inherit;white-space:nowrap;cursor:pointer;transition:.2s}
+.chip.on{background:var(--pri);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{padding:16px;display:flex;flex-direction:column;gap:8px;animation:in .4s both;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.top{display:flex;gap:10px;align-items:center}
+.av{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;font-size:24px;background:var(--chip)}
+.nm{font-weight:700}.sub{font-size:12px;color:var(--mut)}
+.stars{color:#f5a623;letter-spacing:1px;font-size:14px}
+.tag{font-size:11px;padding:3px 9px;border-radius:99px;background:var(--chip);font-weight:600}
+.tag.rec{background:linear-gradient(90deg,var(--pri),var(--pri2));color:#fff}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto}
+.price{font-weight:800;color:var(--free)}
+.btn{border:0;cursor:pointer;font:700 14px inherit;font-family:inherit;padding:10px 16px;border-radius:16px;color:#fff;background:linear-gradient(135deg,var(--pri),var(--pri2));transition:.2s}
+.btn:active{transform:scale(.95)}
+.btn.alt{background:var(--chip);color:var(--fg)}
+.btn.adv{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.panel{padding:18px;margin-bottom:14px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+label{font-size:12px;font-weight:700;color:var(--mut);display:block;margin:10px 0 4px}
+.big{font-size:32px;font-weight:800}
+.bar{height:10px;border-radius:9px;background:var(--chip);overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pri),var(--pri2));transition:width 3s linear}
+.rate{display:flex;gap:4px;justify-content:center;margin:12px 0}
+.rate span{font-size:34px;cursor:pointer;color:var(--mut);transition:.15s}
+.rate span.on{color:#f5a623;transform:scale(1.1)}
+.modal{position:fixed;inset:0;background:rgba(10,8,30,.5);display:none;place-items:center;z-index:9;padding:20px}
+.modal.show{display:grid}
+.modal .glass{max-width:340px;width:100%;padding:22px;background:var(--bg);text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);padding:12px 20px;border-radius:99px;background:var(--fg);color:var(--bg);font-weight:600;z-index:10;transition:.35s;max-width:90%;text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.empty{text-align:center;color:var(--mut);padding:30px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:20px}
+.av{overflow:hidden;flex-shrink:0}.av img{width:100%;height:100%;object-fit:cover}.av.lg{width:96px;height:96px;font-size:52px;border-radius:30px;margin:0 auto 10px}
+nav{display:grid;grid-template-columns:repeat(3,1fr)}
+.still{animation:none}
+.more{border-top:1px dashed var(--bd);padding-top:10px;font-size:14px;display:flex;flex-direction:column;gap:8px;animation:in .3s both}
+.rv{background:var(--chip);border-radius:14px;padding:8px 10px;font-size:13px}
+.msgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:6px}
+.b{max-width:78%;padding:9px 13px;border-radius:18px;font-size:14px;line-height:1.35;animation:in .25s both}
+.b.in{background:var(--chip);align-self:flex-start;border-bottom-left-radius:6px}
+.b.out{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
+.ems{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<div class="wrap">
+<header class="glass">
+  <div class="logo">🎓 School<span>Now</span></div>
+  <div class="wal" id="wal" title="Open wallet"><div class="f" id="cf">🪙 <b id="vf">0</b></div>
+  <div class="a" id="ca">💎 <b id="va">0</b></div></div>
+</header>
+<nav class="glass" id="nav">
+  <button data-t="discover" class="on">🔎 Discover</button>
+  <button data-t="offer">✍️ Offer</button>
+  <button data-t="sessions">📚 Sessions</button>
+  <button data-t="chat">💬 Chat</button>
+  <button data-t="wallet">👛 Wallet</button>
+  <button data-t="profile">👤 Profile</button>
+</nav>
+<main id="main"></main>
+<div class="foot">SchoolNow is a demo – no real payments or accounts. Students helping students ✨</div>
+</div>
+
+<div class="modal" id="modal"><div class="glass">
+  <h3 style="margin:0 0 4px">How was the session?</h3>
+  <div class="sub" id="mtxt"></div>
+  <div class="rate" id="rate"></div>
+  <button class="btn" id="send">Submit rating</button>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+var TOY="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABwAHADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD6gE8WP9YmP94VwfjjVEvnjSyMcsUakBpCojJJ5PzEbsYGO3NR+LtR0/S4ntoIv9JZNziNyoiTqSQDjJAOB+P15LRtOl1W93zR7pl5dmAbYe4UHgYHHtgn0p15KlHmY6K9q7IeLfVbgOS0EsH9028cwb1J28j6D86XyZbmeGJ4IlRW3fLIWWSQfdGDyoUbmINa2p2FjpsqwxWy/byAzNGSnl56DcPmLd6qy/2jdI9rIsWMKj3UuPNRDksuRjcCAB2I3d656WJVR8ttTeeHcI899CjHMZbyORFR7eBswCVciRu8pHcn+H0H146q21nVlQZskljHY25Ufh0qbQnsrCNmvLV2umYkyRgMoGeAvQgY9qs3WsxNAbi3uZbOwUfPPKcl/wDcDZx9e/YHrXPKlVqT5m7Gyq0oR5Urktl4ksEkRL+P+zJXO1TKcRsT23cD8wK6PFeZSS3Oo3E0el6cArj55r7JeUHvt5Yj/erb8LW+t6LEY7vNzp4HEKRkNCP9gkkkf7OPpjoW+WOnNdk2b1SsjrLmzgvF23EYbbyrA4ZT6hhyPwrk9e0Bo3afLMMf8fUSZkUf9NUHEi+45H612KSpLbLPAwljZdylOdw9qRXEih0YFTyCK15UlrucynJz93bqjy/UrWPUIhDqgVLhVHk30R3jB+6c/wAcZPY8g/nXGLas9/HazELiRfM28hk3c7T6EZHt9a9Q8T+FLaaSa9tY5lWTm6toHKCX/bAH8Y69t315rmDpkdzYm6tpHlmgZdhYjAKn5hnrhuhznHB4IrfDVHG9vu/yObG4eFRxlJWff9Gd1LGBwAAB0A7VUaILnAxnqasxXsN5Zx3MGdkgyARyp7g+hByD7iqz73PPFdi11RD00Z5baXs1zdJJdO0srsbiVm6se2fqccegxXsvh/SodH0lTIArlfNnY9uMkfhjH4V5n4W0C7j8Radb6hAYmlKzmNuoRcnBHb7o4r1DxgzjwxqKxIJJJYvJClsbt5C4z2+9XFjZKVS3RG2XRlGjruzibe4FxK2oTOrSTs0gAYcZPAz+n0HvV3TbI6nfrZnbJCredeOOVPon44H4D3qS3s9fvRIqzWkapgCNYDsAIyACWBxjHamwnU9EdpJrTyUJy81oNyE+rp/Xn6iuSlCEbuMtWehVnOVk1ohfEGn2WnTlIJriO0jXfPEZN6HP3UAOTz1wD6DvVzQtEkv5E1DVlIx/qLftEP8A4r1P4DjrFp1v/bmsLLIyyW0J+0SFPuvI33R9AOfxHpXYyfuSjjiLhGHZfQ/0/H2rSbfwGUbL3hhtU8tRAFidOUYDoff1B71IrPJEskeFkUkNGx4z3Gf5GpwAv1qnJKsNwjuQqysIW9N/8P59PxWkkoozcnN6bFFZ1sbppY8rZTPtmjP/ACwlP8XsD37d/Wrlxut3My5MJ/1qDt/tD+o/H6x6pbeZG8sab227ZI/+eien19P/AK9Q+HrsXFq0LPveDC7j/Eh+6frwQfcGs1Kzszfl0ujRBV0DIQykZBHeuL17T00u/a8RMWs5zNt4KH++MfqO457c9OpFjdLF0t5eVz/A3+HT9Pen6nbfarSSLHzYyvse1FSLtdBSmnpL5nG6Y8djrJ09n/dXamWBmOcyKBvXPuMMPo1b7xjb8orhb5EhSCF9yLDOssDg4ZASEwPQoWGPbHoa6zTtTEkaxX5SO5xww4SYDqV9/Veo9xg104LE3Xs5PUyxmG5Xzx2KHgqWPUPF91dIzOsNuV3H1JUf4113iNQ2luD0Mkf/AKGKw/CumW+leJNWt7UOIzBDIAxyRksOv1WtzxACdJkIP3XjY/QOpNLEyTckY4SnKEYa7bk9vEY7y4QAYKIw/Uf0FTIhWd1P3XG4fXoR/L9aZMxS5gk/hOYm/HkfqMfjROXzhG2F/uMeQrjpn2I4rJKKNW5nMQz/AGJL+5ijMDfaJSFjACtycbh07fXmurU+bbATKvzph1HIyRyKyilvqwkDBra9iOyZOCR9R0ZSOjf/AFxV26ka2DzojyR9ZI0GW/3lHc+o79ueutSpGSXKrMzpUpRb5ndFOwvXt7l9P1F/3qcwTHpNH2z/ALQ6H1xnvUesNbX2n3EfmZEibWHOQRyrfUED/Iq1fWltrFlGyskig74nB4z9R/n8qgR7u1TekfnKnEgHDDH94Dof9ocEenWuezOnQTRdTM0cUN04aVgDHKCMSjH6N6jv1HoKVwv9keIoJl+W2um8tvRSx4/8ex+fvVHW/FnhfRIFTWLy3tIZWJEL/fUnkldueO+Dj+lNtNX0vxdYPb+HtasNVZV3KgmAnj+o6nHHPt1olTk1dFRqRvZ6XOq1OHz7N8LudPnUeuOo/EZFMs7jzbaMs2452FvXjIP4jH51Il0Tp0d0RgmNZGHp0JH86zBGY7i5tAdobciEdjjeh/AZH4VotYtGEnyzT76HK+OdKS6F7asWRZF89Sg+bH8YHv1/EitaC2tkms7bTZJJIwVD3jtukf5Tgg9O3JAA5o8QTLNb6XqJwpY+W/sTxj/vrFN0mWCw0SaaZjHFYNIHfqcEDYB77GAA9TWNF2m0jrqWcE2atncK/iS4VWBb7KU2jqNjjr+LmtbUIjdadcRJ1liYL9SOKwVtprbxhb3m0C2nVoN2edzLux/5CH/fVdDbMNhUdY2Kfl0/TFdWJVqjOHDSbhqULq7Emh3VwO1t5q+x2bh+uKq2WqNPm0mRTN0bnaFbGcZ/8eX29waZcfu7HWbL+KOMso/2GyR+XT8Kvpo0M9oHJ2TuS5kUdcnIB9ccfTHGKwSb0R06Wuxl1B5zxF5BBfqMRTDpIP7p9fp+IpIb+4gbyr6Biw7xjJ+uO49xWZJPdQXL2jtFexHrHnJP0HBz9Mitm0s5ZoV3FlgPWOU7mX8CMVSiyG3YpCax+0u9hfRwyscyRbgpJ9drd/y+orK8X6hd2+mrJAYJLie4isrVljYF5ZDgAgnBVeW5yOK62HS7eOYSnzJWXp5jZA+g6Vl+NLK5uY9Hu7S3e5fTtRiu3hTG5kCsrbQSMkB8474rSENdSJydtDgv+EF0Ow1W5E9lHf3alTNd3g86SeRgCzktn1wB2xXJfEfwvpWl6fHreiWp0/WYJ4lt3sP3Zd2cADavU9enNer63e2d5MJrWLVlvQoVov7LnO8Dpn5QAffOK5+PQ9S1TUrHUNUkbTk0+5W4tbSPbIzMp+9MeR0yAq9Mk5z09D2sIw1PBWDxVTF3ht+h3IlV9AnkXcEMcpXcpU4+bGQeR9DVa/byrm0nb+KNGP1Vhn9HNP1i7UaQ5Y7Gup/IQN3LNgj8gab4mDR6YJE4aNJAD/2zJ/mory4P95Y96smqV+36HO3pW40S+tZOkVw+PoRv/nWZc2y6taPbTTSCCWJZMx8HzVJXf74GMDpVqCUST36jPEvPv8o5/mPwpumlt6LMymXysjB5YEJzj881xRm1qtz0pQTXK1ozstb3DT3mjXL2zLcKB1OxgxH4gEfjVgSCK/LBgYZlUhh054B/Pj/gQrMjaTzhHfytExJAEm7Y/tlSBS6WDFZPY3CZksD5W3+/Aw+TH/AcDPqteriGnJHk04uMbj/EsLRr9shHzGJreQeobO38icf8CrkPGmuajq8Hhfwx4ZvWsrrXGkae7Xh7e2iGXx6Mc49eCK7+NkmjNpcnzBIh2Mf+Wqev+8O/515V4k0rVfD3inSNc0mOO6utMMkcltK/lrcwSDaSrHhW4HJ4yOa5qclCd3szqkvaU2luaEvw98N6LffZ4LDz3WFTJcXMjSSzMxOWZs+3bHetnw5e3eh6xY6f9pmvNLv5TBFDM2+S1kCM2UY8tHhTkHleCDjiqWoeOvD2qKGnTWdO1aFvIa1l02V5N/XyztBVj6Ybv71r+BtKvbm/bXdZhFsyo0NjZsQXhRsbpJMEgSNgDGTtAx1Jr05ShyWe54EaOIWL54v3TuaKaVyVOSCOwPB+tNM8InEBljExGRHuG4j1x1rjPYJDyCD0rNaygtY2mfdJt5VT3PYfnWlVe5tUuCDISwHRSflB9cd/xpWuVGUo7M5m+UXDWYcgxxTRbD/ebzF3N9CeB+PrVjxfKsejv5hwpD5Ptsb/ABqXWljjvtGtE5knuvNYnrtjQsT+ewfjWR40mFzLDZKcoAGk9xuBx/47j/gVYu0HdlzXPFRRz1rlN7EYd4mc/wC8WyB+b4qa6s0mhuHmLxxqyrFNGcPEEXHmKfru+o9qrSzE6lFAgySNz+wwzD9VWty5m8h0DISjZG4Y4I7Y/Pp6V58U3oj0Z2W5wviv40adab7exYahOBtdLX5YQe+ZGBLD/dArl/CPxavR4qtJdTgt4dNdTBIqF22qxyCSzHgH0x1NeryeB/Dk8RS80m2uiRgvMu5vz7fhXNan8I/D8sE0Om28ls8vIna4dvJ9lXv+P519J7GEotTbbPmFjJJ3irI9NEsUluFbMlo/zq6H5k9GXHp7VW1NHe2VL+I3dtjMd3bgF1B/vL0I9cdfSud0e1vfDdhHb3EqT2EeFWRc/ugBgbgeg98nHfjpu2t9IsxFsVUn5vLbo/vjpn6Y/GvJno+Wej/M9WG3PS1j+KM/SpbNYPsj3FrLCsvmxt0ZmHdkbDbxjGeeAOeK63R3jwRAsrqeWkZNq/QZ5NctrVrJORdW9lcRzZBYQAMM9nU9m9u/89DRPFNrs8u/jaGRflaZYm2Ej+9x8p9e3vVQk07SNJS5o+791jra8Y+M+jTweIrHWoy4t5hHC8iHBidTxz2yDwfUGvYra4huYw9tNHMh/ijYMP0pl/ZW+oWU1pfQpPbTLteNxkEVs1zKwYau6FRTtc5zwhrck8n9n3shklCloZWOWcDqrHuR1z3H0yeqrmtN8Jx6fqlvcxXkrwwElI3UFuVK4L55GCe2fepPEmpO6S2FiVaTGJ3zgID/AAZHc98dB7kUloveLrqnUq/uNn+Bk6nrltbXl9rlyc29tGba1UclySCxH1wvPpiseIXLRG51LCXM/wC8KE8qDyFx9MVPFpUdzdWcV03moJVUkjALD5iAOwGOnqfYV3MawmV3iRPM6M4UZPtmuepFyWvUE1TlprY8+s7Odrxp5LG8ER+VWWFwcDBJ6Z5IUD2X3rQtbe0kZ2V5JmQ8pOSxjP8AusMg12To7dJSv0ArC19JIkF06iR4h1UclP4h+XOPbj36MO4wsrL9TnrVHJ3l/wAAQXMLJE6SKySthWU5FRaVepqGnxXUfCyZOPTkivnvwvH8Rbe/Gm6fp+oXUe8BlvI2iEJB6mU4HHqc+1eryW3iXTofIS0lSXcJXNmvmxO+OShxkA9SrAYPTivUcUup4LhNatHVa3M0GlXDoMk7U/BmCn9Ca5zxbJNoupqmn24ls5ohJFagkfOMgiNhypz26DPGKg1DxDNNps9hqdrLa3ciYUlSmSDno3I/Wug0bxPY3Npp32vYl1JvQTsBtjkBGUyehYDNZzoxqL31cujXnSfuOzMvTNe1FXtPKWSdLnlEZMygfVev4gfjXQy2s2ohZZ7BY7pvl3LK0cg+vyYIHvms3wVZG2jvr/UJY0/euB6RorYx9c/yFbk+tqYmGnQTTMcjzGAQZ/4Fg/pXiulyXUmfRRquq04I5qK2kt9Sa2byNuWwxTcykdQCNv1/Ct7Torl55Utrm8XainAmLYyW7NkdqzLJGlmaeUgSDICD+HPXJ7njFX4JLmC5821nEJKbH+QMSM5GM8Dv2PWqw8uV3kdFam5QstyO9uPENvKY7i6kazbhpIoVEqe/Tp7gZHX6NQRw2o+zqrIBlApzuJ9+5J71YvJ714pFF5N5pUlSSCM444xivP5tS1rUPtFrbRxxrPbljcRjEiynkfJwM4+Yt8vTHORXS+Wo/dOdSeGXv2NRvFFrOIRp6m5gt5nR5lPErDKuV/4F0J64+lTya1eTIohbyIO2G3sf6D9a4fwRpK6ZpNrpmpTQvF9pZFm2kKquV5O77pHzfmOa9G07RYrxPN+0l4iTt+zR/JjPZ3wD6cA/WqlClKreeyOCVWt7K1Ld9dOvZlXSL2aS4liN1c+ciiTeH7EkYI6dvSurhvDNpcz3ZBaDlmA+8PXHr1rDGjf2OJ51MkqSNudnUBgOwG0kED04P1rU0NBdXYh4MKkSyHqGxyq/mQT+HrXJ/wAxFoKyOxRvhkqjvLqf/9k=";
+var S={free:10,adv:0,tab:'discover',cat:'All',q:'',ads:0,open:null,cur:null,still:0,me:{n:'You',e:'😎',img:'',g:'Grade 11',bio:''},chats:[{id:'toyuu',n:'Toyuu',img:TOY,un:1,m:[{f:1,t:'Hope you enjoy getting those A’s!'}]}],sort:'rec',hist:[],xp:0,streak:3,claimed:0,sessions:[],rating:0,rateFor:null,nid:100};
+var CATS=['All','Math','Science','Languages','Coding','Homework','Exam prep'];
+var T=[
+{id:1,n:'Lena K.',e:'🦊',g:'Grade 12',c:'Math',t:'Calculus made simple',p:6,r:4.9,k:48,d:'Limits, derivatives and integrals explained with real examples and lots of practice.',w:'Mon–Thu evenings'},
+{id:2,n:'Mo A.',e:'🐻',g:'Grade 11',c:'Coding',t:'Python for beginners',p:5,r:4.8,k:31,d:'Write your first programs step by step: variables, loops, functions and small projects.',w:'Weekends'},
+{id:3,n:'Sofia R.',e:'🦄',g:'Grade 12',c:'Languages',t:'Spanish conversation practice',p:4,r:4.7,k:22,d:'Relaxed speaking practice to build confidence and vocabulary.',w:'Tue & Thu after school'},
+{id:4,n:'Jonas B.',e:'🐼',g:'Grade 10',c:'Science',t:'Chemistry homework help',p:0,r:4.5,k:12,d:'Free help with balancing equations, moles and lab reports.',w:'Flexible times'},
+{id:5,n:'Amira H.',e:'🦉',g:'Grade 13',c:'Exam prep',t:'Finals crash course',p:8,r:5.0,k:9,d:'Study plans, past papers and test-taking tricks that actually work.',w:'Daily 6–8 pm'},
+{id:6,n:'Tim W.',e:'🐙',g:'Grade 11',c:'Homework',t:'Quick essay proofreading',p:3,r:4.2,k:40,d:'Fast feedback on structure, grammar and arguments before you hand it in.',w:'Anytime'},
+{id:7,n:'Priya S.',e:'🐯',g:'Grade 12',c:'Science',t:'Physics: mechanics & forces',p:5,r:4.6,k:17,d:'Free-body diagrams, Newton’s laws and energy – made visual.',w:'Wed & Sat'},
+{id:8,n:'Luca M.',e:'🐸',g:'Grade 10',c:'Math',t:'Algebra rescue session',p:3,r:3.9,k:5,d:'Equations, fractions and word problems without the panic.',w:'Mon & Fri'}
+];
+function $(i){return document.getElementById(i)}
+function score(t){return (t.r*t.k+4*5)/(t.k+5)} // damped average → recommendation
+function stars(r){var f=Math.round(r),s='';for(var i=1;i<=5;i++)s+=i<=f?'★':'☆';return s}
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove('show')},2400)}
+function upd(){$('vf').textContent=S.free;$('va').textContent=S.adv;}
+function pop(id){var e=$(id);e.classList.add('pop');setTimeout(function(){e.classList.remove('pop')},300);upd()}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+function avh(x){return '<div class="av">'+(x.img?'<img src="'+x.img+'" alt="">':(x.e||'🙂'))+'</div>'}
+function getChat(id){return S.chats.filter(function(c){return c.id===id})[0]}
+function ensure(t,msg){var id='t'+t.id,c=getChat(id);if(!c){c={id:id,n:t.n,e:t.e,img:'',un:0,m:[]};S.chats.unshift(c)}if(msg){c.m.push({f:1,t:msg});c.un++}return c}
+function openChat(tid){var t=T.filter(function(x){return x.id===tid})[0],c=ensure(t);if(!c.m.length)c.m.push({f:1,t:'Hi! I’m '+t.n.split(' ')[0]+' 👋 How can I help?'});c.un=0;S.cur=c.id;S.tab='chat';render()}
+var RP=['Sounds great! 😊','Sure, let’s do it 📚','Send me your questions and we’ll go through them.','Perfect, see you soon!'];
+function sendMsg(){var i=$('ci'),v=i&&i.value.trim();if(!v)return;var c=getChat(S.cur);c.m.push({f:0,t:v});render();$('ci').focus();
+  setTimeout(function(){c.m.push({f:1,t:RP[c.m.length%RP.length]});if(S.tab==='chat'&&S.cur===c.id){render()}else{c.un++;navbar()}},900)}
+function grab(){if($('pn')){S.me.n=$('pn').value.trim()||'You';S.me.g=$('pg').value;S.me.bio=$('pb').value}}
+function chatView(){
+  var c=S.cur&&getChat(S.cur);
+  if(!c)return '<h2>Messages</h2>'+S.chats.map(function(c){var l=c.m[c.m.length-1];return '<div class="glass card" data-cid="'+c.id+'" style="margin-bottom:10px;cursor:pointer;flex-direction:row;align-items:center">'+avh(c)+'<div style="flex:1;min-width:0"><div class="nm">'+esc(c.n)+'</div><div class="sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(l?l.t:'')+'</div></div>'+(c.un?'<span class="tag rec">'+c.un+'</span>':'')+'</div>'}).join('');
+  return '<div class="glass" style="padding:10px;display:flex;flex-direction:column;height:62vh"><div class="top" style="padding:2px 4px 10px"><button class="btn alt" id="back">←</button>'+avh(c)+'<div class="nm">'+esc(c.n)+'</div></div><div id="msgs" class="msgs">'+c.m.map(function(m){return '<div class="b '+(m.f?'in':'out')+'">'+esc(m.t)+'</div>'}).join('')+'</div><div style="display:flex;gap:8px;padding-top:10px"><input id="ci" placeholder="Type a message…"><button class="btn" id="csend">Send</button></div></div>';
+}
+function profile(){
+  var m=S.me,EM=['😎','🦊','🐼','🦄','🐸','🐙','🦉','🐯','🤓','👩‍🎓','👨‍🎓','🚀'],done=S.sessions.filter(function(s){return s.done}).length;
+  return '<h2>Your profile</h2><div class="two"><div class="glass panel" style="text-align:center">'+avh(m).replace('class="av"','class="av lg"')+'<div class="nm">'+esc(m.n)+'</div><div class="sub">'+esc(m.g)+'</div>'
+  +'<div class="ems">'+EM.map(function(x){return '<button class="chip" data-emo="'+x+'" style="font-size:20px">'+x+'</button>'}).join('')+'</div>'
+  +'<label class="btn alt" for="pf" style="display:inline-block">📷 Upload photo</label><input type="file" id="pf" accept="image/*" hidden>'+(m.img?' <button class="btn alt" id="prm">Remove</button>':'')+'</div>'
+  +'<div class="glass panel"><label>Display name</label><input id="pn" value="'+esc(m.n)+'"><label>Grade</label><select id="pg">'+[8,9,10,11,12,13].map(function(g){return '<option'+(m.g==='Grade '+g?' selected':'')+'>Grade '+g+'</option>'}).join('')+'</select><label>About me</label><textarea id="pb" rows="3" placeholder="What are you good at?">'+esc(m.bio)+'</textarea><br><br><button class="btn" id="psave">Save profile</button></div>'
+  +'<div class="glass panel"><h3 style="margin-top:0">📊 Your stats</h3><p class="sub" style="font-size:14px;line-height:1.8">🏅 Level: <b>'+LV[Math.min(4,Math.floor(S.xp/30))]+'</b><br>📚 Sessions finished: <b>'+done+'</b><br>✍️ Offers published: <b>'+T.filter(function(t){return t.mine}).length+'</b></p></div></div>';
+}
+var RV=[['Mia','Explained it so clearly – I went from a C to an A−!'],['Ben','Patient, friendly and always on time.'],['Zoe','Saved my homework deadline 🙌']];
+function discover(){
+  var list=T.filter(function(t){return (S.cat==='All'||t.c===S.cat)&&(t.t+t.n+t.c).toLowerCase().indexOf(S.q.toLowerCase())>-1})
+    .sort(function(a,b){return S.sort==='price'?a.p-b.p:S.sort==='rating'?b.r-a.r:score(b)-score(a)});
+  var top=T.filter(function(t){return t.k>0}).sort(function(a,b){return score(b)-score(a)})[0].id;
+  var h='<div class="glass hero"><h1>Learn. Teach. Earn. 🚀</h1><p>Get help from students who just aced it – and help others to level up yourself.</p></div>';
+  h+='<input id="q" placeholder="Search subjects or tutors…" value="'+esc(S.q)+'">';
+  h+='<div class="chips">'+CATS.map(function(c){return '<button class="chip'+(c===S.cat?' on':'')+'" data-c="'+c+'">'+c+'</button>'}).join('')+'</div>';
+  h+='<select id="srt" style="margin-bottom:12px"><option value="rec"'+(S.sort==='rec'?' selected':'')+'>⭐ Recommended</option><option value="rating"'+(S.sort==='rating'?' selected':'')+'>Highest rated</option><option value="price"'+(S.sort==='price'?' selected':'')+'>Lowest price</option></select>';
+  h+='<div class="grid">'+(list.length?list.map(function(t,i){
+    var A=t.mine?S.me:t,o=S.open===t.id;
+    return '<div class="glass card'+(S.still?' still':'')+'" style="animation-delay:'+i*50+'ms"><div class="top">'+avh(A)+'<div><div class="nm">'+esc(A.n)+'</div><div class="sub">'+esc(A.g||'')+' · '+t.c+'</div></div>'+(t.id===top?'<span class="tag rec" style="margin-left:auto">⭐ Top pick</span>':'')+'</div>'
+    +'<div style="font-weight:600">'+esc(t.t)+'</div><div>'+(t.k?'<span class="stars">'+stars(t.r)+'</span> <span class="sub">'+t.r.toFixed(1)+' ('+t.k+' ratings)</span>':'<span class="sub">🆕 New – no ratings yet</span>')+'</div>'
+    +(o?'<div class="more"><div>'+esc(t.d||A.bio||'Friendly one-on-one help, tailored to what you need.')+'</div><div class="sub">🗓 '+(t.w||'Flexible times')+' · ⏱ 30 min session</div>'+(t.k?[RV[t.id%3],RV[(t.id+1)%3]].map(function(r){return '<div class="rv"><b>'+r[0]+'</b> <span class="stars">★★★★★</span><br>'+r[1]+'</div>'}).join(''):'')+(t.mine?'':'<button class="btn alt" data-chat="'+t.id+'">💬 Message '+esc(t.n.split(' ')[0])+'</button>')+'</div>':'')
+    +'<div class="row"><span class="price">'+(t.p?'🪙 '+t.p:'FREE')+'</span><span><button class="btn alt" data-o="'+t.id+'">'+(o?'Less ▴':'Details ▾')+'</button> <button class="btn" data-b="'+t.id+'">'+(t.p?'Book':'Get help')+'</button></span></div></div>'}).join(''):'<div class="empty">No tutors found 🤷</div>')+'</div>';
+  return h;
+}
+function offer(){
+  return '<h2>Offer your skills</h2><div class="two"><div class="glass panel"><label>What can you help with?</label><input id="ot" placeholder="e.g. Geometry homework help">'
+  +'<label>Short description</label><textarea id="od" rows="2" placeholder="What will you cover?"></textarea><label>Subject</label><select id="oc">'+CATS.slice(1).map(function(c){return '<option>'+c+'</option>'}).join('')+'</select>'
+  +'<label>Price in Free Coins (0 = free help, earns Free Coins)</label><input id="op" type="number" min="0" max="50" value="4">'
+  +'<br><br><button class="btn" id="post">Publish offer</button></div>'
+  +'<div class="glass panel"><h3 style="margin-top:0">💡 How you earn</h3><p class="sub" style="font-size:14px;line-height:1.5">• Free help → you earn <b>Free Coins</b> 🪙<br>• Paid help → students pay you and you earn <b>Advanced Coins</b> 💎<br>• Better ratings → more recommendations → more students</p>'
+  +'<button class="btn alt" id="sim">🎬 Simulate a student booking me</button></div></div>';
+}
+function sessions(){
+  if(!S.sessions.length)return '<h2>My sessions</h2><div class="glass empty">No sessions yet – find a tutor in Discover 🔎</div>';
+  return '<h2>My sessions</h2><div class="grid">'+S.sessions.map(function(s,i){
+    return '<div class="glass card"><div class="top"><div class="av">'+s.e+'</div><div><div class="nm">'+s.t+'</div><div class="sub">with '+s.n+'</div></div></div>'
+    +'<div class="row"><span class="tag">'+(s.done?(s.rated?'✅ Rated '+s.rated+'★':'Completed'):'Booked')+'</span>'
+    +(!s.done?'<button class="btn" data-f="'+i+'">Finish session</button>':(!s.rated?'<button class="btn" data-r="'+i+'">Rate ⭐</button>':''))+'</div></div>'}).join('')+'</div>';
+}
+function wallet(){
+  var cash=(S.adv*0.1).toFixed(2);
+  return '<h2>Wallet</h2><div class="two">'
+  +'<div class="glass panel"><div class="sub">Free Coins 🪙</div><div class="big" style="color:var(--free)">'+S.free+'</div><p class="sub">Used to book tutoring. Earn them by watching daily ads or offering free help.</p>'
+  +'<div class="bar"><i id="bar"></i></div><button class="btn" id="ad">▶ Watch ad (+2) · '+S.ads+'/3 today</button></div>'
+  +'<div class="glass panel"><div class="sub">Advanced Coins 💎</div><div class="big" style="color:var(--adv)">'+S.adv+'</div><p class="sub">Earned by spending money or when students pay you. Worth ≈ €'+cash+'</p>'
+  +'<label>Convert to Free Coins (1 💎 = 1 🪙)</label><div style="display:flex;gap:8px"><input id="cv" type="number" min="1" value="10" style="width:90px"><button class="btn alt" id="conv">Convert</button></div><br><button class="btn adv" id="cash">Cash out to bank 🏦</button></div>'
+  +'<div class="glass panel"><h3 style="margin-top:0">🛒 Top up with real money</h3><p class="sub">Spend money and get Advanced Coins as a bonus!</p><button class="btn" data-m="5">€5 → 20 🪙 + 5 💎</button> <button class="btn" data-m="10">€10 → 45 🪙 + 12 💎</button></div>'+extra()+'</div>';
+}
+function addLog(t,v){S.hist.unshift({t:t,v:v});S.hist=S.hist.slice(0,8)}
+var LV=['Newbie','Helper','Mentor','Pro Tutor','Legend'];
+function extra(){var lv=Math.min(4,Math.floor(S.xp/30)),p=lv===4?100:(S.xp%30)/30*100;
+  return '<div class="glass panel"><div class="sub">🏅 Helper level</div><div class="big">'+LV[lv]+'</div><div class="bar"><i style="width:'+p+'%;transition:none"></i></div><p class="sub">'+S.xp+' XP · help others & finish sessions to level up</p><p style="margin:0 0 10px">🔥 <b>'+S.streak+'-day streak</b></p><button class="btn" id="daily"'+(S.claimed?' disabled':'')+'>'+(S.claimed?'Come back tomorrow':'🎁 Claim +'+(1+Math.min(S.streak,3))+' 🪙')+'</button></div>'
+  +'<div class="glass panel"><h3 style="margin-top:0">🧾 Recent activity</h3>'+(S.hist.length?S.hist.map(function(h){return '<div class="row" style="margin:8px 0"><span class="sub" style="font-size:13px">'+esc(h.t)+'</span><b>'+h.v+'</b></div>'}).join(''):'<div class="sub">Nothing yet – your coin activity shows up here.</div>')+'</div>'}
+function navbar(){var un=S.chats.reduce(function(a,c){return a+c.un},0);
+  [].forEach.call($('nav').children,function(b){b.classList.toggle('on',b.dataset.t===S.tab);if(b.dataset.t==='chat')b.textContent='💬 Chat'+(un?' ('+un+')':'')})}
+function render(){
+  var tb=S.tab,f=tb==='discover'?discover:tb==='offer'?offer:tb==='sessions'?sessions:tb==='chat'?chatView:tb==='profile'?profile:wallet;
+  $('main').innerHTML=f();navbar();upd();
+  var sc=$('msgs');if(sc)sc.scrollTop=sc.scrollHeight;
+}
+$('nav').onclick=function(e){var t=e.target.dataset.t;if(t){S.tab=t;render()}};
+$('wal').onclick=function(){S.tab='wallet';render()};
+$('main').addEventListener('change',function(e){
+  if(e.target.id==='srt'){S.sort=e.target.value;render()}
+  else if(e.target.id==='pf'&&e.target.files[0]){grab();var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement('canvas');c.width=c.height=128;var x=c.getContext('2d'),m=Math.min(im.width,im.height);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,128,128);S.me.img=c.toDataURL('image/jpeg',.85);render();toast('Photo updated 📸')};im.src=fr.result};fr.readAsDataURL(e.target.files[0])}
+});
+$('main').addEventListener('click',function(e){var el=e.target.closest('[data-cid]');if(el){S.cur=el.dataset.cid;getChat(S.cur).un=0;render()}});
+$('main').addEventListener('keydown',function(e){if(e.key==='Enter'&&e.target.id==='ci')sendMsg()});
+$('main').addEventListener('input',function(e){if(e.target.id==='q'){S.q=e.target.value;var p=e.target.selectionStart;render();var q=$('q');q.focus();q.setSelectionRange(p,p)}});
+$('main').addEventListener('click',function(e){
+  var d=e.target.dataset,id=e.target.id;
+  if(d.c){S.cat=d.c;render()}
+  else if(d.b){var t=T.filter(function(x){return x.id==d.b})[0];
+    if(S.free<t.p){toast('Not enough Free Coins – watch an ad or top up! 🪙');return}
+    S.free-=t.p;S.sessions.unshift({n:t.n,e:t.e,t:t.t,id:t.id,done:0,rated:0});addLog('Booked '+t.t,t.p?'−'+t.p+' 🪙':'free');if(!t.mine)ensure(t,'Thanks for booking “'+t.t+'”! When suits you?');pop('cf');toast(t.p?'Booked! −'+t.p+' Free Coins':'Booked – free help on its way 💜')}
+  else if(d.f){S.sessions[d.f].done=1;S.xp+=10;addLog('Finished a session','+10 XP');render();toast('Session complete – please rate it!')}
+  else if(d.r){S.rateFor=+d.r;S.rating=0;var s=S.sessions[S.rateFor];$('mtxt').textContent=s.t+' with '+s.n;drawRate();$('modal').classList.add('show')}
+  else if(id==='post'){var ti=$('ot').value.trim(),p=Math.max(0,+$('op').value||0);if(!ti){toast('Add a title first ✏️');return}
+    T.unshift({id:S.nid++,mine:1,c:$('oc').value,t:ti,d:$('od').value.trim(),w:'Flexible times',p:p,r:4.0,k:0});toast('Offer published! Find it in Discover 🎉')}
+  else if(id==='sim'){var mine=T.filter(function(x){return x.mine})[0];if(!mine){toast('Publish an offer first ✍️');return}
+    S.xp+=15;if(mine.p){S.adv+=mine.p;addLog('A student paid you','+'+mine.p+' 💎');pop('ca');toast('A student paid '+mine.p+' 🪙 → you earned '+mine.p+' 💎')}else{S.free+=2;addLog('Gave free help','+2 🪙');pop('cf');toast('Free help given → +2 Free Coins 🪙')}}
+  else if(id==='ad'){if(S.ads>=3){toast('Daily ad limit reached – come back tomorrow');return}
+    var b=$('bar');b.style.width='100%';e.target.disabled=true;e.target.textContent='Playing ad…';
+    setTimeout(function(){S.ads++;S.free+=2;addLog('Watched an ad','+2 🪙');toast('+2 Free Coins 🪙');render();pop('cf')},3000)}
+  else if(id==='conv'){var n=Math.floor(+$('cv').value||0);if(n<1||n>S.adv){toast('Enter an amount up to your '+S.adv+' 💎');return}S.adv-=n;S.free+=n;addLog('Converted '+n+' 💎','+'+n+' 🪙');render();pop('cf');toast('Converted '+n+' 💎 → '+n+' 🪙')}
+  else if(id==='daily'){var g=1+Math.min(S.streak,3);S.free+=g;S.streak++;S.claimed=1;addLog('Daily streak bonus','+'+g+' 🪙');render();pop('cf');toast('🔥 Streak bonus +'+g+' 🪙')}
+  else if(id==='cash'){if(S.adv<20){toast('Minimum cash-out is 20 💎 (≈ €2.00)');return}toast('€'+(S.adv*0.1).toFixed(2)+' sent to your bank 🏦 (demo)');addLog('Cash out to bank','−'+S.adv+' 💎');S.adv=0;render()}
+  else if(d.m){addLog('Top-up €'+d.m,d.m==='5'?'+20 🪙 +5 💎':'+45 🪙 +12 💎');if(d.m==='5'){S.free+=20;S.adv+=5}else{S.free+=45;S.adv+=12}render();pop('cf');pop('ca');toast('Thanks! Coins added (demo payment)')}
+  else if(d.o){S.open=S.open==d.o?null:+d.o;S.still=1;render();S.still=0}
+  else if(d.chat){openChat(+d.chat)}
+  else if(id==='back'){S.cur=null;render()}
+  else if(id==='csend'){sendMsg()}
+  else if(d.emo){grab();S.me.e=d.emo;S.me.img='';render()}
+  else if(id==='prm'){grab();S.me.img='';render()}
+  else if(id==='psave'){grab();toast('Profile saved ✅');render()}
+  else return;
+  if(['post','sim','ad','conv','cash','b','f','r','m'].indexOf(id||Object.keys(d)[0])>-1&&id!=='ad'&&!d.r)render();
+});
+function drawRate(){$('rate').innerHTML=[1,2,3,4,5].map(function(i){return '<span data-s="'+i+'" class="'+(i<=S.rating?'on':'')+'">★</span>'}).join('')}
+$('rate').onclick=function(e){if(e.target.dataset.s){S.rating=+e.target.dataset.s;drawRate()}};
+$('send').onclick=function(){
+  if(!S.rating){toast('Tap a star first ⭐');return}
+  var s=S.sessions[S.rateFor],t=T.filter(function(x){return x.id===s.id})[0];
+  if(t){t.r=(t.r*t.k+S.rating)/(t.k+1);t.k++}
+  s.rated=S.rating;S.xp+=5;addLog('Rated a session','+5 XP');$('modal').classList.remove('show');render();
+  toast('Thanks! '+(S.rating>=4?'This helper will be recommended more 🌟':'Feedback sent'));
+};
+$('modal').onclick=function(e){if(e.target===this)this.classList.remove('show')};
+render();
+</script>
+</body>
+</html>
